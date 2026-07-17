@@ -1,38 +1,44 @@
-const CACHE_NAME = 'taha-elhaty-v2';
-const assets = [
-  './',
-  './index.html',
-  './manifest.json',
-  './images/logotaha.png'
-];
+const CACHE_NAME = 'taha-elhaty-force-v3';
 
-// التثبيت وعمل كاش للملفات الأساسية
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(assets);
-    }).then(() => self.skipWaiting()) // إجبار التحديث الفوري
-  );
+// استراتيجية التشغيل الفوري والتحكم الكامل في الصفحة من أول ثانية
+self.addEventListener('install', event => {
+  self.skipWaiting(); 
 });
 
-// تفعيل وتحرير الكاش القديم
-self.addEventListener('activate', e => {
-  e.waitUntil(
-    caches.keys().then(keys => {
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
       return Promise.all(
-        keys.map(key => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
+        cacheNames.map(cache => {
+          if (cache !== CACHE_NAME) {
+            return caches.delete(cache);
           }
         })
       );
-    }).then(() => self.clients.claim()) // الاستحواذ الفوري على الصفحات المفتوحة
+    }).then(() => self.clients.claim())
   );
 });
 
-// حدث الـ Fetch الإجباري لقبول تثبيت التطبيق بشكل مستقل
-self.addEventListener('fetch', e => {
-  e.respondWith(
-    fetch(e.request).catch(() => caches.match(e.request))
+// هذا الحدث هو المفتاح الحاسم لقبول جوجل كروم لزر "تثبييييييت"
+self.addEventListener('fetch', event => {
+  // تخطي طلبات الـ Chrome Extensions والـ Analytics عشان ميعملش Error
+  if (!event.request.url.startsWith(self.location.origin)) return;
+
+  event.respondWith(
+    fetch(event.request)
+      .then(response => {
+        // إذا كانت الاستجابة صالحة، قم بنسخها في الكاش بشكل ديناميكي
+        if (response && response.status === 200 && response.type === 'basic') {
+          const responseToCache = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseToCache);
+          });
+        }
+        return response;
+      })
+      .catch(() => {
+        // إذا كان العميل أوفلاين، ابحث عنها في الكاش
+        return caches.match(event.request);
+      })
   );
 });

@@ -1,26 +1,40 @@
 {
-  "id": "/?pwa=taha",
-  "name": "طه الحاتي | المنيو الرسمي",
+  "id": "/index.html?pwa_version=2.0",
+  "name": "مطعم وكبابجي طه الحاتي",
   "short_name": "طه الحاتي",
   "description": "المنيو الإلكتروني الرسمي لمطعم وكبابجي طه الحاتي",
-  "start_url": "./index.html",
+  "start_url": "index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#0b1510",
   "theme_color": "#2e7d32",
   "orientation": "portrait",
+  "prefer_related_applications": false,
   "icons": [
     {
       "src": "images/logotaha.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "images/logotaha.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "images/logotaha.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "images/logotaha.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
-  ]
+  ],
+  "categories": ["food", "shopping"]
 }

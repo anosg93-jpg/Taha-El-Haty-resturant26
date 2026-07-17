@@ -20,11 +20,11 @@
             --bg: #e0e0e5; 
             --main-text: #11291b; 
             --desc-text: #506658;
-            --accent: #2e7d32; /* الأخضر الفاتح الحيوي */
+            --accent: #2e7d32; 
             --yellow-gold: #f3a63b; 
             --address-tag: #2e7d32;
             --white: #f2f2f7; 
-            --glass: rgba(242, 242, 247, 1); /* تم تعديل الشفافية هنا لمنع ظهور الأصناف بالخلفية */
+            --glass: rgba(242, 242, 247, 1); 
             --success-dark: #11291b; 
             --header-bg: #f2f2f7;
         }
@@ -34,12 +34,12 @@
             --main-text: #f2f2f7;
             --desc-text: #a4b3a9;
             --white: #121f17;
-            --glass: rgba(18, 31, 23, 1); /* تم تعديل الشفافية هنا للوضع المظلم لمنع ظهور الأصناف بالخلفية */
+            --glass: rgba(18, 31, 23, 1); 
             --header-bg: #121f17;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; transition: background 0.3s, color 0.3s; }
-        body { background-color: var(--bg); color: var(--main-text); line-height: 1.6; overflow-x: hidden; padding-bottom: 70px; /* مسافة مخصصة لشريط التثبيت السفلي */ }
+        body { background-color: var(--bg); color: var(--main-text); line-height: 1.6; overflow-x: hidden; padding-bottom: 70px; }
 
         /* --- شاشة الترحيب --- */
         #splash-screen {
@@ -60,26 +60,13 @@
         .loading-bar { width: 180px; height: 6px; background: rgba(0,0,0,0.05); margin: 25px auto 10px auto; border-radius: 10px; overflow: hidden; position: relative; }
         .loading-bar span { display: block; width: 0; height: 100%; background: var(--yellow-gold); animation: progress 4s linear forwards; }
         
-        /* تأثير النسبة الكريتيف المتغيرة */
         .creative-counter {
-            font-size: 0.95rem;
-            font-weight: 800;
-            color: var(--accent);
-            background: rgba(46, 125, 50, 0.08);
-            padding: 4px 14px;
-            border-radius: 20px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
-            transform: translateY(5px);
-            opacity: 0;
-            animation: fadeInCounter 0.3s ease forwards;
+            font-size: 0.95rem; font-weight: 800; color: var(--accent);
+            background: rgba(46, 125, 50, 0.08); padding: 4px 14px; border-radius: 20px;
+            display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            transform: translateY(5px); opacity: 0; animation: fadeInCounter 0.3s ease forwards;
         }
-        .creative-counter span {
-            color: var(--yellow-gold);
-            font-variant-numeric: tabular-nums;
-        }
+        .creative-counter span { color: var(--yellow-gold); font-variant-numeric: tabular-nums; }
         @keyframes fadeInCounter { to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
         @keyframes progress { from { width: 0; } to { width: 100%; } }
@@ -87,10 +74,8 @@
 
         /* --- الهيدر --- */
         header { 
-            background: var(--header-bg); 
-            position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.06);
-            display: flex; flex-direction: column; align-items: center;
-            padding: 15px 0;
+            background: var(--header-bg); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.06);
+            display: flex; flex-direction: column; align-items: center; padding: 15px 0;
         }
         .header-top { width: 100%; display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 10px; }
         .header-logo-container { width: 115px; height: 115px; border-radius: 50%; background: white; padding: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); overflow: hidden; display: flex; align-items: center; justify-content: center; }
@@ -106,8 +91,7 @@
         .branch-header-line { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 600; }
         .addr-tag { color: var(--yellow-gold); font-weight: 800; }
 
-        /* القائمة وتوسيع المسافات بين الأقسام */
-        .category-nav { display: flex; overflow-x: auto; white-space: nowrap; padding: 15px 20px; gap: 25px; scrollbar-width: none; background: var(--glass); backdrop-filter: blur(0px); position: sticky; top: 177px; margin-top: -1px; z-index: 999; border-bottom: 0.5px solid rgba(0,0,0,0.1); box-shadow: 0 -15px 0 var(--glass); /* الظل العلوي السالب لسد الفراغ العلوي تماماً ومنع الرؤية من خلفه */ }
+        .category-nav { display: flex; overflow-x: auto; white-space: nowrap; padding: 15px 20px; gap: 25px; scrollbar-width: none; background: var(--glass); backdrop-filter: blur(0px); position: sticky; top: 177px; margin-top: -1px; z-index: 999; border-bottom: 0.5px solid rgba(0,0,0,0.1); box-shadow: 0 -15px 0 var(--glass); }
         .cat-item { display: flex; flex-direction: column; align-items: center; min-width: 90px; }
         .cat-img-box { width: 55px; height: 55px; border-radius: 16px; background: #e5e5ea; overflow: hidden; border: 2.5px solid transparent; transition: 0.3s; }
         .cat-img-box img { width: 100%; height: 100%; object-fit: cover; }
@@ -124,11 +108,9 @@
         .food-desc { font-size: 0.8rem; color: var(--desc-text); line-height: 1.4; margin-top: 4px; margin-bottom: 8px; }
         .food-price { font-weight: 800; color: var(--yellow-gold); font-size: 0.95rem; white-space: nowrap; display: inline-block; }
         
-        /* إصلاح أزرار الأحجام لتكون متناسقة وغير متداخلة */
         .size-btn { width: auto; min-width: 50px; padding: 2px 10px; height: 28px; border-radius: 8px; border: 1.5px solid var(--accent); background: transparent; color: var(--main-text); font-weight: 800; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
         .size-btn.active { background: var(--accent); color: white; transform: scale(1.05); box-shadow: 0 4px 8px rgba(46, 125, 50, 0.2); }
         
-        /* تنسيق زر طلب مع تحريكه للداخل قليلاً وتوسيع المسافة */
         .order-btn { background: var(--accent); color: white; border: none; padding: 6px 18px; margin-left: 15px; border-radius: 16px; font-size: 0.85rem; font-weight: 800; cursor: pointer; transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; }
         .order-btn.added { background: var(--success-dark); color: white; box-shadow: 0 4px 10px rgba(17, 41, 27, 0.3); }
         .fly-item { position: fixed; z-index: 9999; pointer-events: none; width: 30px; height: 30px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1); }
@@ -181,7 +163,6 @@
         .cart-item-price { color: var(--yellow-gold); font-weight: 800; font-size: 0.85rem; display: block; }
         .remove-btn { color: #ff3b30; font-weight: 800; font-size: 0.75rem; cursor: pointer; }
 
-        /* تصميم خيارات الاستلاف */
         .order-type-container { display: flex; background: rgba(0,0,0,0.04); padding: 6px; border-radius: 16px; margin: 15px 0; gap: 6px; }
         .order-type-btn { flex: 1; border: none; background: transparent; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; color: var(--desc-text); transition: all 0.3s ease; }
         .order-type-btn.active { background: var(--accent); color: white; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2); }
@@ -473,7 +454,7 @@
             if (selectedOrderType === 'delivery') {
                 document.getElementById('totalAmount').innerHTML = `${currentTotal} ج.م <small style="font-size: 0.72rem; font-weight: 600; opacity: 0.9;">+ تكلفه التوصيل حسب مكانك</small>`;
             } else {
-                document.getElementById('totalAmount').innerText = `${currentTotal} ج.م`;
+                document.getElementById('totalAmount').innerText = `${currentTotal} ج.m`;
             }
         }
 
@@ -483,13 +464,6 @@
             const modal = document.getElementById('cartModal'); 
             modal.style.display = s ? 'flex' : 'none'; 
             cartOpen = s;
-            if (s) {
-                history.pushState({state: 'cart'}, null, window.location.href);
-            } else {
-                if (history.state && history.state.state === 'cart') {
-                    history.back();
-                }
-            }
         }
         
         function setOrderType(type) {
@@ -516,13 +490,12 @@
             window.open(`https://wa.me/201214540350?text=${encodeURIComponent(msg)}`);
         }
 
-        // --- تعديل وتدقيق سكريبت التثبيت الاحترافي الحاسم ---
+        // --- إصلاح سكريبت التثبيت الاحترافي الحاسم لمنع أخطاء جوجل كروم ---
         function initPWA() {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('./sw.js')
                 .then(reg => {
-                    console.log('Service Worker Registered Setup Done!');
-                    // إجبار السيرفس وركر الجديد على التحديث فوراً دون انتظار قفل التاب
+                    console.log('Service Worker Setup Complete!');
                     reg.update();
                 }).catch(err => console.log('SW registration failed:', err));
             }
@@ -540,7 +513,6 @@
         }
 
         window.addEventListener('beforeinstallprompt', (e) => {
-            // منع المتصفح من إخفاء شريط المطور المخصص
             e.preventDefault();
             deferredPrompt = e;
             
@@ -563,29 +535,24 @@
                     deferredPrompt = null;
                 });
             } else {
-                // حل بديل في حال لم يطلق المتصفح الحدث تلقائياً بسبب الكاش
                 alert("برجاء الضغط على خيارات المتصفح (3 نقاط أعلى اليسار) واختيار 'تثبيت التطبيق' أو 'Install App'");
             }
         }
-
-        history.pushState({state: 'home'}, null, window.location.href);
 
         window.addEventListener('popstate', function (event) {
             if (cartOpen) {
                 const modal = document.getElementById('cartModal'); 
                 modal.style.display = 'none'; 
                 cartOpen = false;
-                history.pushState({state: 'home'}, null, window.location.href);
                 return;
             }
 
             const currentTime = new Date().getTime();
             if (currentTime - lastBackPressTime < 2000) {
-                window.history.go(-2);
+                window.history.go(-1);
             } else {
                 lastBackPressTime = currentTime;
                 showToast("اضغط مرة أخرى للخروج");
-                history.pushState({state: 'home'}, null, window.location.href);
             }
         });
 

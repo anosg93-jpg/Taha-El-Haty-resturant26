@@ -1,19 +1,18 @@
 {
-  "id": "/taha-hati-app",
-  "name": "مطعم وكبابجي طه الحاتي",
+  "name": "طه الحاتي | المنيو الرسمي",
   "short_name": "طه الحاتي",
-  "description": "المنيو الرسمي لمطعم وكبابجي طه الحاتي",
-  "start_url": "./index.html",
+  "description": "المنيو الإلكتروني الرسمي لمطعم وكبابجي طه الحاتي",
+  "start_url": "index.html",
   "display": "standalone",
-  "orientation": "portrait",
-  "background_color": "#e0e0e5",
+  "background_color": "#0b1510",
   "theme_color": "#2e7d32",
+  "orientation": "portrait",
   "icons": [
     {
       "src": "images/logotaha.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
       "src": "images/logotaha.png",

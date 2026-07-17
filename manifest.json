@@ -1,8 +1,10 @@
 {
+  "id": "/?pwa=taha",
   "name": "طه الحاتي | المنيو الرسمي",
   "short_name": "طه الحاتي",
   "description": "المنيو الإلكتروني الرسمي لمطعم وكبابجي طه الحاتي",
-  "start_url": "index.html",
+  "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#0b1510",
   "theme_color": "#2e7d32",

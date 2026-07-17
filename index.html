@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>طه الحاتي | المنيو الرسمي</title>
     
-    <link rel="manifest" href="manifest.json">
+    <!-- تم ضبط المسار المباشر للمانيفست لضمان التعرف السريع -->
+    <link rel="manifest" href="./manifest.json">
     
     <!-- وسم الأيفون والـ iOS لتشغيله كتطبيق كامل -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -236,6 +237,7 @@
         <div class="ios-content">
             <h3>تثبيت تطبيق طه الحاتي للأيفون</h3>
             <p>اضغط على زر المشاركة السفلي <span style="font-size:1.2rem;"> Compartir ⇧</span> في متصفح Safari، ثم اختر <b>"إضافة إلى الشاشة الرئيسية ➕"</b>.</p>
+            <p style="color:var(--yellow-gold); font-size:0.8rem;">(تأكد من فتح الرابط في Safari مباشرة وليس داخل تطبيقات أخرى)</p>
             <button class="ios-close" onclick="document.getElementById('iosPopup').style.display='none'">حسناً</button>
         </div>
     </div>
@@ -301,12 +303,11 @@
     </div>
 
     <script>
-        // رابط الشيت الجديد المحدث
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQg3e-eGJiBnpQQe4DGfm-F-6LTiBp-aAmsSRXiFIh4dbAhIE6fcGpKhCyD9Nf7ahgr4A2H8zjU1P0A/pub?output=csv';
         const IMAGES_PATH = "./images/"; 
         let menuData = [], cart = [];
         let currentTotal = 0; 
-        let deferredPrompt;
+        let deferredPrompt = null;
         let selectedOrderType = 'delivery';
         let cartOpen = false;
         let lastBackPressTime = 0;
@@ -333,7 +334,6 @@
             }, 38);
         }
 
-        // دالة مساعدة لمعالجة نصوص الـ CSV بشكل صحيح حتى لو كانت تحتوي على فواصل داخل النصوص
         function parseCSVLine(text) {
             let p = '', r = [];
             let q = false;
@@ -350,17 +350,13 @@
         async function loadMenu() {
             startCreativeCounter();
             try {
-                // إضافة متغير t لمنع الكاش لضمان جلب التعديلات فوراً وبسرعة لحظية
                 const response = await fetch(csvUrl + '&t=' + new Date().getTime());
                 const data = await response.text();
-                // تقسيم السطور
                 const rows = data.split(/\r?\n/).slice(1);
                 
                 menuData = rows.map(row => {
                     if(!row.trim()) return null;
                     const col = parseCSVLine(row);
-                    
-                    // ترتيب الشيت الجديد: القسم [0], الصنف [1], عادي [2], صغير [3], وسط [4], كبير [5]
                     return { 
                         category: col[0]?.trim(), 
                         name: col[1]?.trim(), 
@@ -400,7 +396,6 @@
         function filterCat(cat, el) {
             if(el) { document.querySelectorAll('.cat-item').forEach(b => b.classList.remove('active')); el.classList.add('active'); }
             document.getElementById('menuList').innerHTML = menuData.filter(i => i.category === cat).map(item => {
-                // تحديد النوع الافتراضي والسعر الافتراضي بناءً على الخانات المتاحة
                 let defaultType = item.priceNormal ? 'عادي' : item.priceSmall ? 'صغير' : item.priceMedium ? 'وسط' : 'كبير';
                 let defaultPrice = item.priceNormal || item.priceSmall || item.priceMedium || item.priceLarge || '0';
                 let displayPrice = (defaultPrice === "حسب اليوم") ? "حسب اليوم" : `${defaultPrice} ج.م`;
@@ -438,11 +433,9 @@
             const card = btn.closest('.food-card'); const type = card.dataset.type; const price = card.dataset.price; const category = card.dataset.category || '';
             let finalName = `${name} (${type})`; cart.push({name: finalName, price: price, img: img, category: category});
             
-            // إضافة تأثير الزر
             btn.innerText = 'تم الطلب'; btn.classList.add('added');
             setTimeout(() => { btn.innerText = 'اطلب'; btn.classList.remove('added'); }, 2000);
 
-            // أنيميشن طيران العنصر السحري إلى السلة
             const cartBtn = document.getElementById('cartBtn');
             if (cartBtn) {
                 const flyItem = document.createElement('div');
@@ -462,7 +455,6 @@
 
                 setTimeout(() => {
                     flyItem.remove();
-                    // اهتزاز السلة عند وصول العنصر
                     cartBtn.classList.add('shake');
                     setTimeout(() => cartBtn.classList.remove('shake'), 500);
                 }, 750);
@@ -478,7 +470,6 @@
                 return `<div class="cart-item-card"><img src="${item.img}" class="cart-item-img" onerror="this.src='${IMAGES_PATH}default.jpg'"><div class="cart-item-info"><span class="cart-item-name">${item.name}</span><span class="cart-item-price">${item.price} ج.م</span></div><span class="remove-btn" onclick="removeFromCart(${idx})">حذف</span></div>`;
             }).join('');
             
-            // تحديث السعر الإجمالي مع التفرقة بين الدليفري والتيك اواي وتصغير نص التوصيل
             if (selectedOrderType === 'delivery') {
                 document.getElementById('totalAmount').innerHTML = `${currentTotal} ج.م <small style="font-size: 0.72rem; font-weight: 600; opacity: 0.9;">+ تكلفه التوصيل حسب مكانك</small>`;
             } else {
@@ -507,11 +498,10 @@
             document.getElementById('takeawayBtn').classList.toggle('active', type === 'takeaway');
             document.getElementById('uAddr').style.display = (type === 'delivery') ? 'block' : 'none';
             
-            // إعادة حساب وتحديث النص في السلة فوراً بناء على نوع الطلب المختار
             if (selectedOrderType === 'delivery') {
                 document.getElementById('totalAmount').innerHTML = `${currentTotal} ج.م <small style="font-size: 0.72rem; font-weight: 600; opacity: 0.9;">+ تكلفه التوصيل حسب مكانك</small>`;
             } else {
-                document.getElementById('totalAmount').innerText = `${currentTotal} ج.m`;
+                document.getElementById('totalAmount').innerText = `${currentTotal} ج.م`;
             }
         }
 
@@ -520,27 +510,29 @@
             if (!n || !p || cart.length === 0) return alert("يرجى إكمال البيانات واختيار الأصناف");
             if (selectedOrderType === 'delivery' && !a) return alert("يرجى إدخال العنوان");
             
-            // تخصيص نص السعر بناء على نوع الطلب
             let totalText = selectedOrderType === 'delivery' ? `${currentTotal} ج.م + تكلفه التوصيل حسب مكانك` : `${currentTotal} ج.م`;
             
             let msg = `طلب جديد من طه الحاتي \n\n✨ تفاصيل الطلب: \nالاسم: ${n}\nالهاتف: ${p}\nالنوع: ${selectedOrderType === 'delivery' ? 'دليفري' : 'تيك اواي'}\n${selectedOrderType === 'delivery' ? 'العنوان: ' + a + '\n' : ''}\nالطلبات:\n` + cart.map((i, idx) => `${idx + 1}. ${i.name} (${i.price} ج.م)`).join('\n') + `\n\nالإجمالي: ${totalText}\n\nشكراً لطلبكم من طه الحاتي`;
             window.open(`https://wa.me/201214540350?text=${encodeURIComponent(msg)}`);
         }
 
+        // --- تعديل وتدقيق سكريبت التثبيت الاحترافي الحاسم ---
         function initPWA() {
             if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./sw.js', { scope: './' })
-                .then(() => console.log('Service Worker Registered Successfully!'));
+                navigator.serviceWorker.register('./sw.js')
+                .then(reg => {
+                    console.log('Service Worker Registered Setup Done!');
+                    // إجبار السيرفس وركر الجديد على التحديث فوراً دون انتظار قفل التاب
+                    reg.update();
+                }).catch(err => console.log('SW registration failed:', err));
             }
             
-            // تحقق مما إذا كان التطبيق مثبتًا بالفعل ومفتوحًا كـ Standalone لمنع ظهور شريط التثبيت بداخله
             const isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
             if (isStandalone) {
                 document.getElementById('install-bar').style.display = 'none';
                 return;
             }
 
-            // التحقق من نظام iOS بشكل دقيق يشمل أجهزة الآيباد الحديثة
             const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
             if (isIOS) {
                 document.getElementById('install-bar').style.display = 'flex';
@@ -548,10 +540,10 @@
         }
 
         window.addEventListener('beforeinstallprompt', (e) => {
+            // منع المتصفح من إخفاء شريط المطور المخصص
             e.preventDefault();
             deferredPrompt = e;
             
-            // إظهار شريط التثبيت المخصص فقط إذا لم يكن التطبيق مثبتًا بالفعل كـ Standalone
             const isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;
             if (!isStandalone) {
                 document.getElementById('install-bar').style.display = 'flex';
@@ -570,32 +562,29 @@
                     }
                     deferredPrompt = null;
                 });
+            } else {
+                // حل بديل في حال لم يطلق المتصفح الحدث تلقائياً بسبب الكاش
+                alert("برجاء الضغط على خيارات المتصفح (3 نقاط أعلى اليسار) واختيار 'تثبيت التطبيق' أو 'Install App'");
             }
         }
 
-        // --- التحديث الاحترافي لحركة الرجوع الذكي والضغط المزدوج للخروج الفعلي ---
         history.pushState({state: 'home'}, null, window.location.href);
 
         window.addEventListener('popstate', function (event) {
             if (cartOpen) {
-                // إذا كانت السلة مفتوحة، نقوم بإغلاقها بسلاسة ونبقى داخل التطبيق
                 const modal = document.getElementById('cartModal'); 
                 modal.style.display = 'none'; 
                 cartOpen = false;
-                // إعادة كتابة الحالة لضمان عمل زر الرجوع بالشكل الصحيح في المرة التالية
                 history.pushState({state: 'home'}, null, window.location.href);
                 return;
             }
 
-            // إذا كان المستخدم في الصفحة الرئيسية وضغط على زر الرجوع
             const currentTime = new Date().getTime();
             if (currentTime - lastBackPressTime < 2000) {
-                // الخروج الفعلي بالرجوع لصفحتين في الـ history لكسر الحاجز والوصول للخارج
                 window.history.go(-2);
             } else {
                 lastBackPressTime = currentTime;
                 showToast("اضغط مرة أخرى للخروج");
-                // إعادة تثبيت حالة التراجع لمنعه من الخروج المفاجئ من التطبيق بالكامل في الضغطة الأولى
                 history.pushState({state: 'home'}, null, window.location.href);
             }
         });

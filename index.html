@@ -511,7 +511,7 @@
             if (selectedOrderType === 'delivery') {
                 document.getElementById('totalAmount').innerHTML = `${currentTotal} ج.م <small style="font-size: 0.72rem; font-weight: 600; opacity: 0.9;">+ تكلفه التوصيل حسب مكانك</small>`;
             } else {
-                document.getElementById('totalAmount').innerText = `${currentTotal} ج.م`;
+                document.getElementById('totalAmount').innerText = `${currentTotal} ج.m`;
             }
         }
 
@@ -528,7 +528,10 @@
         }
 
         function initPWA() {
-            if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js');
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js', { scope: './' })
+                .then(() => console.log('Service Worker Registered Successfully!'));
+            }
             
             // تحقق مما إذا كان التطبيق مثبتًا بالفعل ومفتوحًا كـ Standalone لمنع ظهور شريط التثبيت بداخله
             const isStandalone = window.navigator.standalone || window.matchMedia('(display-mode: standalone)').matches;

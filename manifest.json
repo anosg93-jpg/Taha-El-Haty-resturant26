@@ -1,40 +1,26 @@
 {
-  "id": "/index.html?pwa_version=2.0",
   "name": "مطعم وكبابجي طه الحاتي",
   "short_name": "طه الحاتي",
-  "description": "المنيو الإلكتروني الرسمي لمطعم وكبابجي طه الحاتي",
-  "start_url": "index.html",
-  "scope": "./",
+  "description": "المنيو الرسمي لمطعم وكبابجي طه الحاتي - اطلب الآن أونلاين",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0b1510",
   "theme_color": "#2e7d32",
-  "orientation": "portrait",
-  "prefer_related_applications": false,
+  "orientation": "portrait-primary",
+  "dir": "rtl",
+  "lang": "ar",
   "icons": [
     {
       "src": "images/logotaha.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "images/logotaha.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     },
     {
       "src": "images/logotaha.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "images/logotaha.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
+      "purpose": "any maskable"
     }
-  ],
-  "categories": ["food", "shopping"]
+  ]
 }

@@ -1,16 +1,32 @@
-const CACHE_NAME = 'taha-elhaty-force-v3';
+const CACHE_NAME = 'taha-alhaty-v2';
 
-// استراتيجية التشغيل الفوري والتحكم الكامل في الصفحة من أول ثانية
-self.addEventListener('install', event => {
-  self.skipWaiting(); 
+// الملفات الأساسية الواجب كاشها لضمان سرعة الفتح الأولي
+const ASSETS_TO_CACHE = [
+  './',
+  './index.html',
+  './manifest.json',
+  './images/logotaha.png',
+  './images/default.jpg'
+];
+
+// تثبيت الـ Service Worker وكاش الملفات الثابتة فوراً
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      console.log('⚡ [PWA] Caching foundational assets');
+      return cache.addAll(ASSETS_TO_CACHE);
+    }).then(() => self.skipWaiting())
+  );
 });
 
-self.addEventListener('activate', event => {
+// تنظيف الكاش القديم تلقائياً عند تحديث الأبلكيشن
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
+    caches.keys().then((cacheNames) => {
       return Promise.all(
-        cacheNames.map(cache => {
+        cacheNames.map((cache) => {
           if (cache !== CACHE_NAME) {
+            console.log('🧹 [PWA] Clearing old cache:', cache);
             return caches.delete(cache);
           }
         })
@@ -19,26 +35,42 @@ self.addEventListener('activate', event => {
   );
 });
 
-// هذا الحدث هو المفتاح الحاسم لقبول جوجل كروم لزر "تثبييييييت"
-self.addEventListener('fetch', event => {
-  // تخطي طلبات الـ Chrome Extensions والـ Analytics عشان ميعملش Error
-  if (!event.request.url.startsWith(self.location.origin)) return;
+// معالجة الطلبات الذكية (سرعة + جلب أحدث البيانات أونلاين)
+self.addEventListener('fetch', (event) => {
+  const requestUrl = new Error(event.request.url);
+  
+  // استبعاد طلبات شيت جوجل والواتساب من الكاش الصارم لضمان التحديث اللحظي للأسعار
+  if (event.request.url.includes('docs.google.com') || event.request.url.includes('wa.me')) {
+    event.respondWith(
+      fetch(event.request).catch(() => caches.match(event.request))
+    );
+    return;
+  }
 
+  // استراتيجية التشغيل السريع للملفات الداخلية للموقع
   event.respondWith(
     fetch(event.request)
-      .then(response => {
-        // إذا كانت الاستجابة صالحة، قم بنسخها في الكاش بشكل ديناميكي
-        if (response && response.status === 200 && response.type === 'basic') {
-          const responseToCache = response.clone();
-          caches.open(CACHE_NAME).then(cache => {
+      .then((networkResponse) => {
+        // تأكد من نجاح الاستجابة قبل وضعها في الكاش
+        if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+          const responseToCache = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
             cache.put(event.request, responseToCache);
           });
         }
-        return response;
+        return networkResponse;
       })
       .catch(() => {
-        // إذا كان العميل أوفلاين، ابحث عنها في الكاش
-        return caches.match(event.request);
+        // إذا كان المستخدم أوفلاين أو الشبكة معطلة، يتم الاستعانة بالكاش فوراً
+        return caches.match(event.request).then((cachedResponse) => {
+          if (cachedResponse) {
+            return cachedResponse;
+          }
+          // إذا كان الطلب لصفحة غير موجودة بالكاش، اعرض الصفحة الرئيسية الافتراضية
+          if (event.request.mode === 'navigate') {
+            return caches.match('./index.html');
+          }
+        });
       })
   );
 });

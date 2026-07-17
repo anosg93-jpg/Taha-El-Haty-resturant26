@@ -1,10 +1,10 @@
 {
-  "name": "طه الحاتي | المنيو الرسمي",
+  "name": "مطعم وكبابجي طه الحاتي",
   "short_name": "طه الحاتي",
-  "description": "مطعم وكبابجي طه الحاتي - المنيو الرسمي والطلب المباشر عبر الواتساب",
+  "description": "المنيو الرسمي لمطعم وكبابجي طه الحاتي - لما الأصل يبقى بلدي، الطعم لازم يفرق",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#e0e0e5",
+  "background_color": "#f2f2f7",
   "theme_color": "#2e7d32",
   "orientation": "portrait-primary",
   "dir": "rtl",

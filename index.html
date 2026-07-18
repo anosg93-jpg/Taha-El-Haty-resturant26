@@ -16,25 +16,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #e0e0e5; 
-            --main-text: #11291b; 
-            --desc-text: #506658;
-            --accent: #2e7d32; /* الأخضر الفاتح الحيوي */
-            --yellow-gold: #f3a63b; 
-            --address-tag: #2e7d32;
-            --white: #f2f2f7; 
-            --glass: rgba(242, 242, 247, 1); /* تم تعديل الشفافية هنا لمنع ظهور الأصناف بالخلفية */
-            --success-dark: #11291b; 
-            --header-bg: #f2f2f7;
+            --bg: #fdfbf7; 
+            --main-text: #1a0f0a; 
+            --desc-text: #daaf97;
+            --accent: #e65100; /* البرتقالي الناري المستوحى من لهب اللوجو */
+            --yellow-gold: #fbc02d; /* الأصفر الذهبي الملكي من كلمة طه الحاتي */
+            --address-tag: #e65100;
+            --white: #f7f4ed; 
+            --glass: rgba(247, 244, 237, 1); /* تم تعديل الشفافية لمنع ظهور الأصناف بالخلفية */
+            --success-dark: #ff6d00; 
+            --header-bg: #f7f4ed;
         }
 
         body.dark-mode {
-            --bg: #0b1510; 
+            --bg: #0b0503; 
             --main-text: #f2f2f7;
-            --desc-text: #a4b3a9;
-            --white: #121f17;
-            --glass: rgba(18, 31, 23, 1); /* تم تعديل الشفافية هنا للوضع المظلم لمنع ظهور الأصناف بالخلفية */
-            --header-bg: #121f17;
+            --desc-text: #bda394;
+            --white: #140b07;
+            --glass: rgba(20, 11, 7, 1); /* تم تعديل الشفافية هنا للوضع المظلم لمنع ظهور الأصناف بالخلفية */
+            --header-bg: #140b07;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; transition: background 0.3s, color 0.3s; }
@@ -64,7 +64,7 @@
             font-size: 0.95rem;
             font-weight: 800;
             color: var(--accent);
-            background: rgba(46, 125, 50, 0.08);
+            background: rgba(230, 81, 0, 0.08);
             padding: 4px 14px;
             border-radius: 20px;
             display: inline-flex;
@@ -120,16 +120,16 @@
         .item-img-box img { width: 100%; height: 100%; object-fit: cover; }
         .food-info { flex: 1; position: relative; display: flex; flex-direction: column; min-height: 95px; }
         .food-name { font-weight: 700; font-size: 0.95rem; color: var(--main-text); padding-left: 15px; }
-        .food-desc { font-size: 0.8rem; color: var(--desc-text); line-height: 1.4; margin-top: 4px; margin-bottom: 8px; }
-        .food-price { font-weight: 800; color: var(--yellow-gold); font-size: 0.95rem; white-space: nowrap; display: inline-block; }
+        .food-desc { font-size: 0.8rem; color: var(--desc-text); line-height: 1.4; margin-top: 6px; margin-bottom: 8px; opacity: 0.9; font-weight: 600; padding-left: 10px; }
+        .food-price { font-weight: 800; color: #000000; font-size: 0.95rem; white-space: nowrap; display: inline-block; }
         
         /* إصلاح أزرار الأحجام لتكون متناسقة وغير متداخلة */
         .size-btn { width: auto; min-width: 50px; padding: 2px 10px; height: 28px; border-radius: 8px; border: 1.5px solid var(--accent); background: transparent; color: var(--main-text); font-weight: 800; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
-        .size-btn.active { background: var(--accent); color: white; transform: scale(1.05); box-shadow: 0 4px 8px rgba(46, 125, 50, 0.2); }
+        .size-btn.active { background: var(--accent); color: white; transform: scale(1.05); box-shadow: 0 4px 8px rgba(230, 81, 0, 0.2); }
         
         /* تنسيق زر طلب مع تحريكه للداخل قليلاً وتوسيع المسافة */
         .order-btn { background: var(--accent); color: white; border: none; padding: 6px 18px; margin-left: 15px; border-radius: 16px; font-size: 0.85rem; font-weight: 800; cursor: pointer; transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; }
-        .order-btn.added { background: var(--success-dark); color: white; box-shadow: 0 4px 10px rgba(17, 41, 27, 0.3); }
+        .order-btn.added { background: var(--success-dark); color: white; box-shadow: 0 4px 10px rgba(255, 109, 0, 0.3); }
         .fly-item { position: fixed; z-index: 9999; pointer-events: none; width: 30px; height: 30px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1); }
 
         /* --- شريط التثبيت الذكي الثابت في الأسفل --- */
@@ -164,11 +164,10 @@
         .social-btn-link:hover { transform: scale(1.1); }
         .social-btn-link.fb-color { background: #1877F2; }
         .social-btn-link.wa-color { background: #25D366; }
-        .social-btn-link.ig-color { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
         .social-btn-link svg { width: 24px; height: 24px; fill: white; }
         .footer-rights { font-size: 0.8rem; color: var(--main-text); font-weight: 600; margin-bottom: 5px; }
         .dev-credit { font-size: 0.85rem; color: var(--desc-text); font-weight: 700; }
-        .dev-credit a { color: #1e7e43; text-decoration: none; display: block; margin-top: 3px; }
+        .dev-credit a { color: var(--yellow-gold); text-decoration: none; display: block; margin-top: 3px; }
 
         /* مودال السلة */
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; justify-content: center; align-items: flex-end; }
@@ -177,13 +176,13 @@
         .cart-item-img { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; }
         .cart-item-info { flex: 1; }
         .cart-item-name { font-weight: 700; font-size: 0.9rem; color: var(--main-text); }
-        .cart-item-price { color: var(--yellow-gold); font-weight: 800; font-size: 0.85rem; display: block; }
+        .cart-item-price { color: #000000; font-weight: 800; font-size: 0.85rem; display: block; }
         .remove-btn { color: #ff3b30; font-weight: 800; font-size: 0.75rem; cursor: pointer; }
 
         /* تصميم خيارات الاستلاف */
         .order-type-container { display: flex; background: rgba(0,0,0,0.04); padding: 6px; border-radius: 16px; margin: 15px 0; gap: 6px; }
         .order-type-btn { flex: 1; border: none; background: transparent; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; color: var(--desc-text); transition: all 0.3s ease; }
-        .order-type-btn.active { background: var(--accent); color: white; box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2); }
+        .order-type-btn.active { background: var(--accent); color: white; box-shadow: 0 4px 12px rgba(230, 81, 0, 0.2); }
 
         .user-fields input { background: var(--bg); border: none; padding: 16px; border-radius: 14px; width: 100%; margin-bottom: 10px; color: var(--main-text); text-align: right; }
         #uAddr { transition: all 0.3s ease; }
@@ -255,11 +254,8 @@
         </div>
 
         <div class="social-icons-box">
-            <a href="https://www.facebook.com/share/1MDJgYMgt1/" target="_blank" class="social-btn-link fb-color" title="فيسبوك">
+            <a href="https://www.facebook.com/share/1BxKRh3jHa/" target="_blank" class="social-btn-link fb-color" title="فيسبوك">
                 <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/sandwich_saif?igsh=YzNkc3lieGJpZmJh" target="_blank" class="social-btn-link ig-color" title="إنستجرام">
-                <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051C.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
             </a>
             <a href="https://wa.me/201214540350" target="_blank" class="social-btn-link wa-color" title="واتساب">
                 <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.513 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.713-1.457L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.63-1.023-5.101-2.885-6.963C16.528 2.022 14.056.996 11.43.996c-5.442 0-9.87 4.372-9.874 9.799-.001 1.742.483 3.442 1.398 4.914l-.995 3.637 3.737-.971zm10.873-6.53c-.293-.146-1.734-.852-2.001-.95-.267-.099-.463-.146-.659.146-.195.293-.759.95-.93 1.146-.171.195-.341.219-.634.073-.293-.146-1.239-.456-2.361-1.456-.872-.777-1.46-1.738-1.632-2.031-.171-.293-.018-.452.129-.597.132-.131.293-.341.44-.512.146-.171.195-.293.293-.488.098-.195.049-.366-.024-.512-.074-.146-.659-1.586-.902-2.17-.238-.574-.479-.496-.659-.506-.171-.008-.366-.01-.562-.01-.195 0-.513.073-.781.366-.269.293-1.025 1.001-1.025 2.441 0 1.439 1.049 2.83 1.196 3.025.146.195 2.064 3.15 5.003 4.415.699.301 1.244.482 1.67.618.703.223 1.344.192 1.85.117.564-.083 1.734-.707 1.978-1.39.244-.683.244-1.269.171-1.39-.073-.122-.269-.195-.562-.342z"/></svg>
@@ -277,7 +273,7 @@
         <div class="modal-content">
             <h2 style="margin-bottom: 20px;">طلباتك</h2>
             <div id="cartItemsList"></div>
-            <div style="margin: 20px 0; padding: 15px; background: rgba(46, 125, 50, 0.08); border-radius: 18px; display: flex; justify-content: space-between;">
+            <div style="margin: 20px 0; padding: 15px; background: rgba(230, 81, 0, 0.08); border-radius: 18px; display: flex; justify-content: space-between;">
                 <b>المجموع</b>
                 <b id="totalAmount">0 ج.م</b>
             </div>
@@ -360,7 +356,7 @@
                     if(!row.trim()) return null;
                     const col = parseCSVLine(row);
                     
-                    // ترتيب الشيت الجديد: القسم [0], الصنف [1], عادي [2], صغير [3], وسط [4], كبير [5]
+                    // ترتيب الشيت الجديد: القسم [0], الصنف [1], عادي [2], صغير [3], وسط [4], كبير [5], الوصف [6]
                     return { 
                         category: col[0]?.trim(), 
                         name: col[1]?.trim(), 
@@ -368,6 +364,7 @@
                         priceSmall: col[3]?.trim(), 
                         priceMedium: col[4]?.trim(), 
                         priceLarge: col[5]?.trim(),
+                        desc: col[6]?.trim() || '',
                         img: `${IMAGES_PATH}${col[1]?.trim()}.jpg` 
                     };
                 }).filter(i => i && i.name);
@@ -404,6 +401,10 @@
                 let defaultType = item.priceNormal ? 'عادي' : item.priceSmall ? 'صغير' : item.priceMedium ? 'وسط' : 'كبير';
                 let defaultPrice = item.priceNormal || item.priceSmall || item.priceMedium || item.priceLarge || '0';
                 let displayPrice = (defaultPrice === "حسب اليوم") ? "حسب اليوم" : `${defaultPrice} ج.م`;
+                
+                // إعداد نص وعرض قسم الوصف بشكل جميل ومنفصل بخط صغير مخصص إذا كان موجودًا
+                let descriptionHTML = item.desc ? `<div class="food-desc">${item.desc}</div>` : '';
+
                 return `
                 <div class="food-card" data-category="${item.category}" data-type="${defaultType}" data-price="${defaultPrice}">
                     <div class="item-img-box"><img src="${item.img}" onerror="this.src='${IMAGES_PATH}default.jpg'"></div>
@@ -412,6 +413,7 @@
                             <span class="food-name">${item.name}</span>
                             <span class="food-price">${displayPrice}</span>
                         </div>
+                        ${descriptionHTML}
                         <div class="sizes-row" style="display: flex; gap: 8px; margin-top: 10px; margin-bottom: 12px;">
                             ${item.priceNormal ? `<button class="size-btn ${defaultType === 'عادي' ? 'active' : ''}" onclick="selectType(this, '${item.priceNormal}', 'عادي')">عادي</button>` : ''}
                             ${item.priceSmall ? `<button class="size-btn ${defaultType === 'صغير' ? 'active' : ''}" onclick="selectType(this, '${item.priceSmall}', 'صغير')">صغير</button>` : ''}
@@ -429,7 +431,7 @@
         function selectType(btn, price, type) {
             const container = btn.parentElement; container.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
             const card = btn.closest('.food-card');
-            let displayPrice = (price === "حسب اليوم") ? "حسب اليوم" : `${price} ج.م`;
+            let displayPrice = (price === "حسب اليوم") ? "حسب اليوم" : `${price} ج.m`;
             card.querySelector('.food-price').innerText = displayPrice;
             card.dataset.type = type; card.dataset.price = price;
         }
@@ -606,7 +608,7 @@
                 toast.style.bottom = '80px';
                 toast.style.left = '50%';
                 toast.style.transform = 'translateX(-50%)';
-                toast.style.background = 'rgba(17, 41, 27, 0.9)';
+                toast.style.background = 'rgba(230, 81, 0, 0.9)';
                 toast.style.color = '#ffffff';
                 toast.style.padding = '10px 24px';
                 toast.style.borderRadius = '20px';

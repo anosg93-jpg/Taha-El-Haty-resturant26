@@ -1,4 +1,4 @@
-const CACHE_NAME = 'taha-alhaty-v1';
+const CACHE_NAME = 'taha-alhaty-v2';
 
 // الملفات الثابتة الأساسية التي سيتم حفظها في ذاكرة الهاتف لسرعة تفتح فورية
 const ASSETS_TO_CACHE = [

@@ -398,7 +398,7 @@
             if(el) { document.querySelectorAll('.cat-item').forEach(b => b.classList.remove('active')); el.classList.add('active'); }
             document.getElementById('menuList').innerHTML = menuData.filter(i => i.category === cat).map(item => {
                 // تحديد النوع الافتراضي والسعر الافتراضي بناءً على الخانات المتاحة
-                let defaultType = item.priceNormal ? 'عادي' : item.priceSmall ? 'صغير' : item.priceMedium ? 'وسط' : 'كبير';
+                let defaultType = item.priceNormal ? '⭐' : item.priceSmall ? 'صغير' : item.priceMedium ? 'وسط' : 'كبير';
                 let defaultPrice = item.priceNormal || item.priceSmall || item.priceMedium || item.priceLarge || '0';
                 let displayPrice = (defaultPrice === "حسب اليوم") ? "حسب اليوم" : `${defaultPrice} ج.م`;
                 
@@ -415,7 +415,7 @@
                         </div>
                         ${descriptionHTML}
                         <div class="sizes-row" style="display: flex; gap: 8px; margin-top: 10px; margin-bottom: 12px;">
-                            ${item.priceNormal ? `<button class="size-btn ${defaultType === 'عادي' ? 'active' : ''}" onclick="selectType(this, '${item.priceNormal}', 'عادي')">عادي</button>` : ''}
+                            ${item.priceNormal ? `<button class="size-btn ${defaultType === '⭐' ? 'active' : ''}" onclick="selectType(this, '${item.priceNormal}', '⭐')">⭐</button>` : ''}
                             ${item.priceSmall ? `<button class="size-btn ${defaultType === 'صغير' ? 'active' : ''}" onclick="selectType(this, '${item.priceSmall}', 'صغير')">صغير</button>` : ''}
                             ${item.priceMedium ? `<button class="size-btn ${defaultType === 'وسط' ? 'active' : ''}" onclick="selectType(this, '${item.priceMedium}', 'وسط')">وسط</button>` : ''}
                             ${item.priceLarge ? `<button class="size-btn ${defaultType === 'كبير' ? 'active' : ''}" onclick="selectType(this, '${item.priceLarge}', 'كبير')">كبير</button>` : ''}
@@ -431,7 +431,7 @@
         function selectType(btn, price, type) {
             const container = btn.parentElement; container.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active');
             const card = btn.closest('.food-card');
-            let displayPrice = (price === "حسب اليوم") ? "حسب اليوم" : `${price} ج.m`;
+            let displayPrice = (price === "حسب اليوم") ? "حسب اليوم" : `${price} ج.م`;
             card.querySelector('.food-price').innerText = displayPrice;
             card.dataset.type = type; card.dataset.price = price;
         }

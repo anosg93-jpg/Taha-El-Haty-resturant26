@@ -114,13 +114,13 @@
         .cat-item span { font-size: 0.75rem; font-weight: 700; color: var(--desc-text); margin-top: 5px; }
         .menu-list { padding: 15px; max-width: 600px; margin: auto; }
         
-        /* الكروت وتكبير مساحة الصور لتظهر واضحة وكاملة وبدون أي قص */
-        .food-card { background: var(--white); border-radius: 24px; margin-bottom: 16px; display: flex; padding: 20px; gap: 18px; align-items: flex-start; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
-        .item-img-box { width: 115px; height: 115px; border-radius: 18px; overflow: hidden; background: transparent; flex-shrink: 0; }
+        /* ضبط الكروت وتعديل حجم مساحة الصورة لتصبح متوسطة، متناسقة ومريحة جداً للموبايل */
+        .food-card { background: var(--white); border-radius: 24px; margin-bottom: 16px; display: flex; padding: 16px; gap: 15px; align-items: flex-start; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
+        .item-img-box { width: 100px; height: 100px; border-radius: 14px; overflow: hidden; background: transparent; flex-shrink: 0; }
         .item-img-box img { width: 100%; height: 100%; object-fit: contain; }
-        .food-info { flex: 1; position: relative; display: flex; flex-direction: column; min-height: 115px; }
+        .food-info { flex: 1; position: relative; display: flex; flex-direction: column; min-height: 100px; justify-content: space-between; }
         .food-name { font-weight: 700; font-size: 0.95rem; color: var(--main-text); padding-left: 15px; }
-        .food-desc { font-size: 0.8rem; color: var(--desc-text); line-height: 1.4; margin-top: 6px; margin-bottom: 8px; opacity: 0.9; font-weight: 600; padding-left: 10px; }
+        .food-desc { font-size: 0.8rem; color: var(--desc-text); line-height: 1.4; margin-top: 4px; margin-bottom: 6px; opacity: 0.9; font-weight: 600; padding-left: 10px; }
         .food-price { font-weight: 800; color: #000000; font-size: 0.95rem; white-space: nowrap; display: inline-block; }
         
         /* إصلاح أزرار الأحجام لتكون متناسقة وغير متداخلة */

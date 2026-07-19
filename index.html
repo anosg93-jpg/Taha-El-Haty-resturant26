@@ -108,17 +108,17 @@
         /* القائمة وتوسيع المسافات بين الأقسام */
         .category-nav { display: flex; overflow-x: auto; white-space: nowrap; padding: 15px 20px; gap: 25px; scrollbar-width: none; background: var(--glass); backdrop-filter: blur(0px); position: sticky; top: 177px; margin-top: -1px; z-index: 999; border-bottom: 0.5px solid rgba(0,0,0,0.1); box-shadow: 0 -15px 0 var(--glass); /* الظل العلوي السالب لسد الفراغ العلوي تماماً ومنع الرؤية من خلفه */ }
         .cat-item { display: flex; flex-direction: column; align-items: center; min-width: 90px; }
-        .cat-img-box { width: 55px; height: 55px; border-radius: 16px; background: #e5e5ea; overflow: hidden; border: 2.5px solid transparent; transition: 0.3s; }
-        .cat-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .cat-img-box { width: 65px; height: 65px; border-radius: 16px; background: transparent; overflow: hidden; border: 2.5px solid transparent; transition: 0.3s; }
+        .cat-img-box img { width: 100%; height: 100%; object-fit: contain; }
         .cat-item.active .cat-img-box { border-color: var(--accent); transform: scale(1.05); }
         .cat-item span { font-size: 0.75rem; font-weight: 700; color: var(--desc-text); margin-top: 5px; }
         .menu-list { padding: 15px; max-width: 600px; margin: auto; }
         
-        /* الكروت */
+        /* الكروت وتكبير مساحة الصور لتظهر واضحة وكاملة وبدون أي قص */
         .food-card { background: var(--white); border-radius: 24px; margin-bottom: 16px; display: flex; padding: 20px; gap: 18px; align-items: flex-start; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
-        .item-img-box { width: 95px; height: 95px; border-radius: 18px; overflow: hidden; background: #e5e5ea; flex-shrink: 0; }
-        .item-img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .food-info { flex: 1; position: relative; display: flex; flex-direction: column; min-height: 95px; }
+        .item-img-box { width: 115px; height: 115px; border-radius: 18px; overflow: hidden; background: transparent; flex-shrink: 0; }
+        .item-img-box img { width: 100%; height: 100%; object-fit: contain; }
+        .food-info { flex: 1; position: relative; display: flex; flex-direction: column; min-height: 115px; }
         .food-name { font-weight: 700; font-size: 0.95rem; color: var(--main-text); padding-left: 15px; }
         .food-desc { font-size: 0.8rem; color: var(--desc-text); line-height: 1.4; margin-top: 6px; margin-bottom: 8px; opacity: 0.9; font-weight: 600; padding-left: 10px; }
         .food-price { font-weight: 800; color: #000000; font-size: 0.95rem; white-space: nowrap; display: inline-block; }
@@ -173,7 +173,7 @@
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; justify-content: center; align-items: flex-end; }
         .modal-content { background: var(--white); width: 100%; max-width: 500px; padding: 25px; border-radius: 30px 30px 0 0; max-height: 90vh; overflow-y: auto; color: var(--main-text); }
         .cart-item-card { display: flex; align-items: center; gap: 12px; padding: 12px; background: rgba(0,0,0,0.04); border-radius: 18px; margin-bottom: 10px; }
-        .cart-item-img { width: 50px; height: 50px; border-radius: 12px; object-fit: cover; }
+        .cart-item-img { width: 50px; height: 50px; border-radius: 12px; object-fit: contain; background: transparent; }
         .cart-item-info { flex: 1; }
         .cart-item-name { font-weight: 700; font-size: 0.9rem; color: var(--main-text); }
         .cart-item-price { color: #000000; font-weight: 800; font-size: 0.85rem; display: block; }
@@ -356,6 +356,9 @@
                     if(!row.trim()) return null;
                     const col = parseCSVLine(row);
                     
+                    // استخدام encodeURIComponent لحل مشكلة الرموز الخاصة مثل الزائد والناقص في روابط الصور
+                    const safeImageName = encodeURIComponent(col[1]?.trim());
+                    
                     // ترتيب الشيت الجديد: القسم [0], الصنف [1], عادي [2], صغير [3], وسط [4], كبير [5], الوصف [6]
                     return { 
                         category: col[0]?.trim(), 
@@ -365,7 +368,7 @@
                         priceMedium: col[4]?.trim(), 
                         priceLarge: col[5]?.trim(),
                         desc: col[6]?.trim() || '',
-                        img: `${IMAGES_PATH}${col[1]?.trim()}.jpg` 
+                        img: `${IMAGES_PATH}${safeImageName}.jpg` 
                     };
                 }).filter(i => i && i.name);
                 
@@ -387,7 +390,7 @@
             const uniqueCats = [...new Map(menuData.map(item => [item.category, item])).values()];
             document.getElementById('catNav').innerHTML = uniqueCats.map((cat, idx) => `
                 <div class="cat-item ${idx === 0 ? 'active' : ''}" onclick="filterCat('${cat.category}', this)">
-                    <div class="cat-img-box"><img src="${IMAGES_PATH}${cat.category}.jpg" onerror="this.src='${IMAGES_PATH}default.jpg'"></div>
+                    <div class="cat-img-box"><img src="${IMAGES_PATH}${encodeURIComponent(cat.category)}.jpg" onerror="this.src='${IMAGES_PATH}default.jpg'"></div>
                     <span>${cat.category}</span>
                 </div>
             `).join('');

@@ -19,11 +19,11 @@
             --bg: #fdfbf7; 
             --main-text: #1a0f0a; 
             --desc-text: #daaf97;
-            --accent: #e65100; /* البرتقالي الناري المستوحى من لهب اللوجو */
-            --yellow-gold: #fbc02d; /* الأصفر الذهبي الملكي من كلمة طه الحاتي */
+            --accent: #e65100; /* البرتقالي الناري */
+            --yellow-gold: #fbc02d; /* الأصفر الذهبي */
             --address-tag: #e65100;
             --white: #f7f4ed; 
-            --glass: rgba(247, 244, 237, 1); /* تم تعديل الشفافية لمنع ظهور الأصناف بالخلفية */
+            --glass: rgba(247, 244, 237, 1);
             --success-dark: #ff6d00; 
             --header-bg: #f7f4ed;
         }
@@ -33,12 +33,12 @@
             --main-text: #f2f2f7;
             --desc-text: #bda394;
             --white: #140b07;
-            --glass: rgba(20, 11, 7, 1); /* تم تعديل الشفافية هنا للوضع المظلم لمنع ظهور الأصناف بالخلفية */
+            --glass: rgba(20, 11, 7, 1);
             --header-bg: #140b07;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; -webkit-tap-highlight-color: transparent; transition: background 0.3s, color 0.3s; }
-        body { background-color: var(--bg); color: var(--main-text); line-height: 1.6; overflow-x: hidden; padding-bottom: 70px; /* مسافة مخصصة لشريط التثبيت السفلي */ }
+        body { background-color: var(--bg); color: var(--main-text); line-height: 1.6; overflow-x: hidden; padding-bottom: 70px; }
 
         /* --- شاشة الترحيب --- */
         #splash-screen {
@@ -59,7 +59,6 @@
         .loading-bar { width: 180px; height: 6px; background: rgba(0,0,0,0.05); margin: 25px auto 10px auto; border-radius: 10px; overflow: hidden; position: relative; }
         .loading-bar span { display: block; width: 0; height: 100%; background: var(--yellow-gold); animation: progress 4s linear forwards; }
         
-        /* تأثير النسبة الكريتيف المتغيرة */
         .creative-counter {
             font-size: 0.95rem;
             font-weight: 800;
@@ -75,10 +74,7 @@
             opacity: 0;
             animation: fadeInCounter 0.3s ease forwards;
         }
-        .creative-counter span {
-            color: var(--yellow-gold);
-            font-variant-numeric: tabular-nums;
-        }
+        .creative-counter span { color: var(--yellow-gold); font-variant-numeric: tabular-nums; }
         @keyframes fadeInCounter { to { opacity: 1; transform: translateY(0); } }
         @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
         @keyframes progress { from { width: 0; } to { width: 100%; } }
@@ -105,34 +101,69 @@
         .branch-header-line { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 600; }
         .addr-tag { color: var(--yellow-gold); font-weight: 800; }
 
-        /* القائمة وتوسيع المسافات بين الأقسام */
-        .category-nav { display: flex; overflow-x: auto; white-space: nowrap; padding: 15px 20px; gap: 25px; scrollbar-width: none; background: var(--glass); backdrop-filter: blur(0px); position: sticky; top: 177px; margin-top: -1px; z-index: 999; border-bottom: 0.5px solid rgba(0,0,0,0.1); box-shadow: 0 -15px 0 var(--glass); /* الظل العلوي السالب لسد الفراغ العلوي تماماً ومنع الرؤية من خلفه */ }
-        .cat-item { display: flex; flex-direction: column; align-items: center; min-width: 90px; }
+        /* القائمة */
+        .category-nav { display: flex; overflow-x: auto; white-space: nowrap; padding: 15px 20px; gap: 25px; scrollbar-width: none; background: var(--glass); backdrop-filter: blur(0px); position: sticky; top: 177px; margin-top: -1px; z-index: 999; border-bottom: 0.5px solid rgba(0,0,0,0.1); box-shadow: 0 -15px 0 var(--glass); }
+        .cat-item { display: flex; flex-direction: column; align-items: center; min-width: 90px; cursor: pointer; }
         .cat-img-box { width: 65px; height: 65px; border-radius: 16px; background: transparent; overflow: hidden; border: 2.5px solid transparent; transition: 0.3s; }
         .cat-img-box img { width: 100%; height: 100%; object-fit: contain; }
         .cat-item.active .cat-img-box { border-color: var(--accent); transform: scale(1.05); }
         .cat-item span { font-size: 0.75rem; font-weight: 700; color: var(--desc-text); margin-top: 5px; }
         .menu-list { padding: 15px; max-width: 600px; margin: auto; }
         
-        /* ضبط الكروت وتعديل حجم مساحة الصورة لتصبح متوسطة، متناسقة ومريحة جداً للموبايل */
+        /* ---------------------------------------------------- */
+        /* 1. تصميم الكارت القياسي (العادي لبقية الأقسام) */
+        /* ---------------------------------------------------- */
         .food-card { background: var(--white); border-radius: 24px; margin-bottom: 16px; display: flex; padding: 16px; gap: 15px; align-items: flex-start; box-shadow: 0 4px 15px rgba(0,0,0,0.04); }
-        .item-img-box { width: 100px; height: 100px; border-radius: 14px; overflow: hidden; background: transparent; flex-shrink: 0; }
-        .item-img-box img { width: 100%; height: 100%; object-fit: contain; }
-        .food-info { flex: 1; position: relative; display: flex; flex-direction: column; min-height: 100px; justify-content: space-between; }
-        .food-name { font-weight: 700; font-size: 0.95rem; color: var(--main-text); padding-left: 15px; }
-        .food-desc { font-size: 0.8rem; color: var(--desc-text); line-height: 1.4; margin-top: 4px; margin-bottom: 6px; opacity: 0.9; font-weight: 600; padding-left: 10px; }
-        .food-price { font-weight: 800; color: #000000; font-size: 0.95rem; white-space: nowrap; display: inline-block; }
+        .food-card .item-img-box { width: 100px; height: 100px; border-radius: 14px; overflow: hidden; background: transparent; flex-shrink: 0; }
+        .food-card .item-img-box img { width: 100%; height: 100%; object-fit: contain; }
+        .food-card .food-info { flex: 1; position: relative; display: flex; flex-direction: column; min-height: 100px; justify-content: space-between; }
         
-        /* إصلاح أزرار الأحجام لتكون متناسقة وغير متداخلة */
+        /* ---------------------------------------------------- */
+        /* 2. تصميم الكارت الخاص (المشويات - الصواني - الوجبات) */
+        /* ---------------------------------------------------- */
+        .food-card.card-featured {
+            flex-direction: column;
+            padding: 16px;
+            align-items: stretch;
+            gap: 12px;
+        }
+        .food-card.card-featured .item-img-box {
+            width: 100%;
+            height: 190px;
+            border-radius: 18px;
+            overflow: hidden;
+            background: rgba(0,0,0,0.02);
+        }
+        .food-card.card-featured .item-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* تجعل الصورة مستطيلة وتملأ الكادر بشكل جذاب جداً */
+        }
+        .food-card.card-featured .food-info {
+            width: 100%;
+            min-height: auto;
+            gap: 10px;
+        }
+        .food-card.card-featured .food-desc {
+            padding-left: 0;
+            font-size: 0.85rem;
+            margin-top: 2px;
+            margin-bottom: 4px;
+        }
+
+        /* العناصر المشتركة داخل الكروت */
+        .food-name { font-weight: 700; font-size: 1rem; color: var(--main-text); }
+        .food-desc { font-size: 0.8rem; color: var(--desc-text); line-height: 1.4; opacity: 0.95; font-weight: 600; }
+        .food-price { font-weight: 800; color: #000000; font-size: 1rem; white-space: nowrap; display: inline-block; }
+        
         .size-btn { width: auto; min-width: 50px; padding: 2px 10px; height: 28px; border-radius: 8px; border: 1.5px solid var(--accent); background: transparent; color: var(--main-text); font-weight: 800; font-size: 0.75rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
         .size-btn.active { background: var(--accent); color: white; transform: scale(1.05); box-shadow: 0 4px 8px rgba(230, 81, 0, 0.2); }
         
-        /* تنسيق زر طلب مع تحريكه للداخل قليلاً وتوسيع المسافة */
-        .order-btn { background: var(--accent); color: white; border: none; padding: 6px 18px; margin-left: 15px; border-radius: 16px; font-size: 0.85rem; font-weight: 800; cursor: pointer; transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; }
+        .order-btn { background: var(--accent); color: white; border: none; padding: 8px 22px; border-radius: 16px; font-size: 0.9rem; font-weight: 800; cursor: pointer; transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease; }
         .order-btn.added { background: var(--success-dark); color: white; box-shadow: 0 4px 10px rgba(255, 109, 0, 0.3); }
         .fly-item { position: fixed; z-index: 9999; pointer-events: none; width: 30px; height: 30px; background: var(--accent); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; transition: all 0.7s cubic-bezier(0.19, 1, 0.22, 1); }
 
-        /* --- شريط التثبيت الذكي الثابت في الأسفل --- */
+        /* --- شريط التثبيت الذكي --- */
         #install-bar {
             position: fixed; bottom: 0; left: 0; width: 100%; background: var(--accent);
             color: white; padding: 15px 20px; display: none; justify-content: space-between;
@@ -143,7 +174,7 @@
         .install-text { font-weight: 700; font-size: 0.95rem; }
         .install-btn { background: var(--yellow-gold); color: #11291b; border: none; padding: 8px 18px; border-radius: 12px; font-weight: 800; font-size: 0.85rem; cursor: pointer; }
 
-        /* نافذة إرشاد الأيفون */
+        /* نافذة الأيفون */
         .ios-popup { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 3000; display: none; justify-content: center; align-items: center; padding: 20px; }
         .ios-content { background: var(--white); color: var(--main-text); padding: 25px; border-radius: 24px; text-align: center; max-width: 320px; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
         .ios-content h3 { margin-bottom: 12px; font-size: 1.1rem; color: var(--accent); }
@@ -179,13 +210,11 @@
         .cart-item-price { color: #000000; font-weight: 800; font-size: 0.85rem; display: block; }
         .remove-btn { color: #ff3b30; font-weight: 800; font-size: 0.75rem; cursor: pointer; }
 
-        /* تصميم خيارات الاستلاف */
         .order-type-container { display: flex; background: rgba(0,0,0,0.04); padding: 6px; border-radius: 16px; margin: 15px 0; gap: 6px; }
         .order-type-btn { flex: 1; border: none; background: transparent; padding: 12px; border-radius: 12px; font-weight: 800; font-size: 0.9rem; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; color: var(--desc-text); transition: all 0.3s ease; }
         .order-type-btn.active { background: var(--accent); color: white; box-shadow: 0 4px 12px rgba(230, 81, 0, 0.2); }
 
         .user-fields input { background: var(--bg); border: none; padding: 16px; border-radius: 14px; width: 100%; margin-bottom: 10px; color: var(--main-text); text-align: right; }
-        #uAddr { transition: all 0.3s ease; }
         .submit-btn { background: var(--accent); color: white; border: none; padding: 18px; border-radius: 18px; width: 100%; font-weight: 800; cursor: pointer; }
     </style>
 </head>
@@ -297,7 +326,6 @@
     </div>
 
     <script>
-        // رابط الشيت الجديد المحدث
         const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQg3e-eGJiBnpQQe4DGfm-F-6LTiBp-aAmsSRXiFIh4dbAhIE6fcGpKhCyD9Nf7ahgr4A2H8zjU1P0A/pub?output=csv';
         const IMAGES_PATH = "./images/"; 
         let menuData = [], cart = [];
@@ -329,7 +357,6 @@
             }, 38);
         }
 
-        // دالة مساعدة لمعالجة نصوص الـ CSV بشكل صحيح حتى لو كانت تحتوي على فواصل داخل النصوص
         function parseCSVLine(text) {
             let p = '', r = [];
             let q = false;
@@ -346,20 +373,15 @@
         async function loadMenu() {
             startCreativeCounter();
             try {
-                // إضافة متغير t لمنع الكاش لضمان جلب التعديلات فوراً وبسرعة لحظية
                 const response = await fetch(csvUrl + '&t=' + new Date().getTime());
                 const data = await response.text();
-                // تقسيم السطور
                 const rows = data.split(/\r?\n/).slice(1);
                 
                 menuData = rows.map(row => {
                     if(!row.trim()) return null;
                     const col = parseCSVLine(row);
-                    
-                    // استخدام encodeURIComponent لحل مشكلة الرموز الخاصة مثل الزائد والناقص في روابط الصور
                     const safeImageName = encodeURIComponent(col[1]?.trim());
                     
-                    // ترتيب الشيت الجديد: القسم [0], الصنف [1], عادي [2], صغير [3], وسط [4], كبير [5], الوصف [6]
                     return { 
                         category: col[0]?.trim(), 
                         name: col[1]?.trim(), 
@@ -399,15 +421,49 @@
 
         function filterCat(cat, el) {
             if(el) { document.querySelectorAll('.cat-item').forEach(b => b.classList.remove('active')); el.classList.add('active'); }
+            
+            // تحديد إذا كان القسم ينتمي للأقسام المحددة ذات التصميم الرأسي المتمبيز
+            const targetCategories = ["مشويات", "المشويات", "صواني", "الصواني", "وجبات", "الوجبات"];
+            const isFeaturedCategory = targetCategories.some(c => cat.trim().includes(c));
+
             document.getElementById('menuList').innerHTML = menuData.filter(i => i.category === cat).map(item => {
-                // تحديد النوع الافتراضي والسعر الافتراضي بناءً على الخانات المتاحة
                 let defaultType = item.priceNormal ? '⭐' : item.priceSmall ? 'صغير' : item.priceMedium ? 'وسط' : 'كبير';
                 let defaultPrice = item.priceNormal || item.priceSmall || item.priceMedium || item.priceLarge || '0';
                 let displayPrice = (defaultPrice === "حسب اليوم") ? "حسب اليوم" : `${defaultPrice} ج.م`;
                 
-                // إعداد نص وعرض قسم الوصف بشكل جميل ومنفصل بخط صغير مخصص إذا كان موجودًا
                 let descriptionHTML = item.desc ? `<div class="food-desc">${item.desc}</div>` : '';
 
+                // ---------------------------------------------------------
+                // 1) تصميم الكارت للأقسام المحددة (صورة مستطيلة كبيرة فوق)
+                // ---------------------------------------------------------
+                if (isFeaturedCategory) {
+                    return `
+                    <div class="food-card card-featured" data-category="${item.category}" data-type="${defaultType}" data-price="${defaultPrice}">
+                        <div class="item-img-box">
+                            <img src="${item.img}" onerror="this.src='${IMAGES_PATH}default.jpg'">
+                        </div>
+                        <div class="food-info">
+                            ${descriptionHTML}
+                            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-top: 4px;">
+                                <span class="food-name">${item.name}</span>
+                                <span class="food-price">${displayPrice}</span>
+                            </div>
+                            <div class="sizes-row" style="display: flex; gap: 8px; margin-top: 8px;">
+                                ${item.priceNormal ? `<button class="size-btn ${defaultType === '⭐' ? 'active' : ''}" onclick="selectType(this, '${item.priceNormal}', '⭐')">⭐</button>` : ''}
+                                ${item.priceSmall ? `<button class="size-btn ${defaultType === 'صغير' ? 'active' : ''}" onclick="selectType(this, '${item.priceSmall}', 'صغير')">صغير</button>` : ''}
+                                ${item.priceMedium ? `<button class="size-btn ${defaultType === 'وسط' ? 'active' : ''}" onclick="selectType(this, '${item.priceMedium}', 'وسط')">وسط</button>` : ''}
+                                ${item.priceLarge ? `<button class="size-btn ${defaultType === 'كبير' ? 'active' : ''}" onclick="selectType(this, '${item.priceLarge}', 'كبير')">كبير</button>` : ''}
+                            </div>
+                            <div style="display: flex; justify-content: flex-end; width: 100%; margin-top: 6px;">
+                                <button class="order-btn" onclick="addToCart(event, this, '${item.name}', '${item.img}')">اطلب</button>
+                            </div>
+                        </div>
+                    </div>`;
+                }
+
+                // ---------------------------------------------------------
+                // 2) تصميم الكارت الكلاسيكي الأفقي لباقي الأقسام
+                // ---------------------------------------------------------
                 return `
                 <div class="food-card" data-category="${item.category}" data-type="${defaultType}" data-price="${defaultPrice}">
                     <div class="item-img-box"><img src="${item.img}" onerror="this.src='${IMAGES_PATH}default.jpg'"></div>
@@ -443,11 +499,9 @@
             const card = btn.closest('.food-card'); const type = card.dataset.type; const price = card.dataset.price; const category = card.dataset.category || '';
             let finalName = `${name} (${type})`; cart.push({name: finalName, price: price, img: img, category: category});
             
-            // إضافة تأثير الزر
             btn.innerText = 'تم الطلب'; btn.classList.add('added');
             setTimeout(() => { btn.innerText = 'اطلب'; btn.classList.remove('added'); }, 2000);
 
-            // أنيميشن طيران العنصر السحري إلى السلة
             const cartBtn = document.getElementById('cartBtn');
             if (cartBtn) {
                 const flyItem = document.createElement('div');
@@ -467,7 +521,6 @@
 
                 setTimeout(() => {
                     flyItem.remove();
-                    // اهتزاز السلة عند وصول العنصر
                     cartBtn.classList.add('shake');
                     setTimeout(() => cartBtn.classList.remove('shake'), 500);
                 }, 750);
@@ -559,7 +612,6 @@
             window.open(waUrl, '_blank');
         }
 
-        // PWA functions & registration
         function initPWA() {
             if ('serviceWorker' in navigator) {
                 navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW registration failed:', err));
@@ -581,7 +633,6 @@
                     document.getElementById('install-bar').style.display = 'none';
                 });
             } else {
-                // iPhone detection fallback
                 const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
                 if (isIOS) {
                     document.getElementById('iosPopup').style.display = 'flex';
@@ -589,7 +640,6 @@
             }
         }
 
-        // Handling double click / back button for app exit override
         window.addEventListener('popstate', (e) => {
             if (cartOpen) {
                 toggleCart(false);
@@ -597,7 +647,6 @@
             } else {
                 const currentTime = new Date().getTime();
                 if (currentTime - lastBackPressTime < 2000) {
-                    // Exit app or allow default back action
                 } else {
                     lastBackPressTime = currentTime;
                     history.pushState(null, null, location.href);
@@ -605,7 +654,6 @@
             }
         });
 
-        // Initial setup
         window.onload = () => {
             history.pushState(null, null, location.href);
             loadMenu();
